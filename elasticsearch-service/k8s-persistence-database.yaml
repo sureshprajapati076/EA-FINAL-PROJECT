@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-service-db
+spec:
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: elasticsearch-service-db-port
+  selector:
+    app: elasticsearch-service-db
+    tier: db
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch-service-db
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch-service-db
+      tier: db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: elasticsearch-service-db
+        tier: db
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: elasticsearch-service-db
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-service-secrets
+                  key: mysql-root-password
+          ports:
+            - containerPort: 3306
+              name: elasticsearch-service-db-port
+          volumeMounts:
+            - name: elasticsearch-service-db-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: elasticsearch-service-db-persistent-storage
+          persistentVolumeClaim:
+            claimName: elasticsearch-service-pv-claim

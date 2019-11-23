@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch-service-deployment
+  labels:
+    app: elasticsearch-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch-service
+  template:
+    metadata:
+      labels:
+        app: elasticsearch-service
+
+    spec:
+      containers:
+        - name: elasticsearch-service
+          image: brianbwengye/elasticsearch-service:lates
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KEY1
+              valueFrom:
+                configMapKeyRef:
+                  name: elasticsearch-service-config
+                  key: someKey1
+            - name: NEXT_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: elasticsearch-service-config
+                  key: nextService
+            - name: ELASTICSEARCH
+              valueFrom:
+                configMapKeyRef:
+                  name: elasticsearch-service-config
+                  key: elasticsearch
+            - name: ELASTICSEARCH_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: elasticsearch-service-config
+                  key: elaticsearchPort
+            - name: SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-service-secrets
+                  key: service-api-key
+            #MYSQL
+            - name: MYSQL_HOST
+              value: elasticsearch-service-db
+
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PORT
+              value: "8081"
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-service-secrets
+                  key: mysql-root-password

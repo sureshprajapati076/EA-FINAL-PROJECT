@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service2-deployment
+  labels:
+    app: payment-service2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service2
+  template:
+    metadata:
+      labels:
+        app: payment-service2
+
+    spec:
+      containers:
+        - name: payment-service2
+          image: brianbwengye/payment-service2:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KEY1
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-service2-config
+                  key: someKey1
+            - name: NEXT_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: payment-service2-config
+                  key: nextService
+            - name: SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: payment-service2-secrets
+                  key: service-api-key
+            #MYSQL
+            - name: MYSQL_HOST
+              value: payment-service2-db
+
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PORT
+              value: "8081"
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: payment-service2-secrets
+                  key: mysql-root-password

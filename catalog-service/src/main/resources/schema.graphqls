@@ -1,0 +1,16 @@
+
+type Apartment {
+	id: ID!,
+	title: String,
+	details: String,
+	imageUrl: String
+}
+
+type Query {
+	apartments(count: Int):[Apartment]
+	apartment(id: ID):Apartment
+}
+
+type Mutation {
+	createApartment(type: String!, modelCode: String!, brandName: String, launchDate: String):Apartment
+}

@@ -1,0 +1,132 @@
+POST http://34.70.251.216/signup
+content-type: application/json
+
+{
+    "email":"su.prajapati@gmail.com",
+    "password":"admin",
+    "name":"Admin",
+    "prefferedPayment":"CC",
+    "address":"UTOPIA",
+    "roles":["ADMIN","USER"]
+}
+
+
+
+###
+POST http://34.70.251.216/signin
+content-type: application/json
+
+{
+    "username":"yghimire1994@gmail.com",
+    "password":"admin"
+}
+
+###
+GET http://34.70.251.216/viewauthorizedpage
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbnlAZ21haWwuY29tIiwiZXhwIjoxNTc0MzQyMjE0LCJpYXQiOjE1NzQzMjQyMTR9.boQhQPA2ccbbeII-7FksgWrcm2f8SB2Yk9tdQ0ZYa8sxwt2FVJXK_bKssb5jdenkABMXJzu7Chhumns9qrbgqQ
+
+
+
+
+
+### ADD Comment
+POST http://localhost:7809/add
+content-type: application/json
+
+{
+  "id":"6",
+  "apartmentId":"3",
+  "emailId":"suresh@gmail.com",
+  "comment":"some comments",
+  "stars":"43"
+}
+
+### READ ALL COMMENTS
+GET http://localhost:7809/getall
+content-type: application/json
+
+
+###
+GET http://localhost:7809/find/1
+content-type: application/json
+
+###
+POST http://localhost:7809/addcomment/5
+content-type: application/json
+
+{
+    "comment":"really wonderful",
+    "email":"someoneelse@gmail.com"
+}
+
+###
+GET http://localhost:8099/makepayment
+###
+POST http://localhost:8099/makepayment
+content-type: application/json
+
+{
+    "userId":"su@gmail.com",
+    "price":"200"
+}
+
+
+###
+POST http://localhost:8081/makePayment/paypal
+content-type: application/json
+
+{
+    "userId":"sur@gmai.co",
+    "price":"0.9"
+}
+###
+
+POST http://localhost:8081/completePayment/paypal
+content-type: application/json
+
+{
+    "PayerID":"N99Q45Z8Q4REW", "paymentId":"PAYID-LXK5TJA5UA07479S1162663N"
+}
+###
+
+POST http://35.222.201.234/saveapartment
+content-type: application/json
+
+{
+  "apartmentId": "11",
+  "apartmentTitle": "title3",
+  "category": "C2",
+  "unitNumber": "UNIT1",
+  "apartmentImages": "url",
+  "apartmentDescription": "description1",
+  "apartmentPhoneNumber": "2220000",
+  "apartmentWebsite": "www.sth.com",
+  "apartmentEmail": "gmail.com",
+  "apartmentCostDescription": "description",
+  "apartmentCost": "22.34",
+  "apartmentKeyword": "good",
+  "apartmentLocationCity": "city",
+  "apartmentLocationStreet": "street",
+  "apartmentLocationState": "WA",
+  "apartmentLocationZipCode": "22222"
+}
+###
+GET http://35.222.201.234/displayApt/11
+
+
+###
+POST  http://35.222.201.234/book
+content-type: application/json
+Authorization: Bearer yJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5Z2hpbWlyZTE5OTRAZ21haWwuY29tIiwiZXhwIjoxNTc0Mzc2NzY1LCJpYXQiOjE1NzQzNTg3NjV9.tqlRI1eExRPAvfHRH7PGhU8UvizkA3gzRPOKQMZdns_4C0T4Z8dQ7wPxbX_WKkhfSoNmzSZEoZZNlegp1wX-uQ
+
+{
+    "id":"12",
+    "apt_id":"11",
+    "unit_number":"C2",
+    "unit_price":"3.5",
+    "start_date":"2019-11-15",
+    "end_date":"2019-11-30"
+}
+
+
